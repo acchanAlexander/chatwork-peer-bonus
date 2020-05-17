@@ -1,7 +1,5 @@
 'use strict'
 
-// process.on('unhandledRejection', console.dir);
-
 const lib = require('./lib.js');
 const bonus = require('./commands/bonus.js');
 const status = require('./commands/status.js');
@@ -33,12 +31,6 @@ const main = async () => {
       ranking.main();
     }
   } catch (err) {
-    /*
-    let obj = {};
-    Error.captureStackTrace(obj);
-    console.log(obj.stack);
-    */
-
     console.log(err);
     await lib.postMessage('error occured');
   }
