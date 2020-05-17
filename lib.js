@@ -105,7 +105,32 @@ const lib = {
     });
 
     return message;
-  }
+  },
+
+  getRankingMessages: (messages) => {
+    return messages.filter(message =>
+      message.body === 'ranking'
+    );
+  },
+
+  getSortedReport: (report) => {
+    // 昇順に sort
+    const sortedReport = report.sort((a, b) => {
+      return a.get_messages.length - b.get_messages.length;
+    });
+
+    return sortedReport.reverse();
+  },
+
+  getSortedReportMessage: (sortedReport) => {
+    let message = '';
+
+    for (const individual of sortedReport) {
+      message += individual.name + ' has ' + individual.get_messages.length + 'points!!\n';
+    }
+
+    return message;
+  },
 }
 
 module.exports = lib;

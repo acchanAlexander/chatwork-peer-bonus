@@ -5,6 +5,7 @@
 const lib = require('./lib.js');
 const bonus = require('./commands/bonus.js');
 const status = require('./commands/status.js');
+const ranking = require('./commands/ranking.js');
 
 const main = async () => {
   try {
@@ -24,6 +25,12 @@ const main = async () => {
 
     if (statusMessages.length !== 0) {
       status.main(statusMessages);
+    }
+
+    const rankingMessages = lib.getRankingMessages(messages);
+
+    if (rankingMessages.length !== 0) {
+      ranking.main();
     }
   } catch (err) {
     /*
