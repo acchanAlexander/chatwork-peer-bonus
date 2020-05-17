@@ -90,7 +90,7 @@ const lib = {
       });
     }
 
-    fs.writeFileSync('./report.json', JSON.stringify(report, null , "\t"));
+    fs.writeFileSync('./report.json', JSON.stringify(newReport, null , "\t"));
   },
 
   getStatusMessages: (messages) => {
