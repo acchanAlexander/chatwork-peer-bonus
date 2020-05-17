@@ -66,20 +66,24 @@ const lib = {
   },
 
   registBonus: (accountId, thanksMessage, name) => {
-    let report = JSON.parse(fs.readFileSync('./report.json'));
+    const report = JSON.parse(fs.readFileSync('./report.json'));
     let isExistedInReport = false;
+    let newReport = [];
 
-    report.forEach((individual, index) => {
+    for (let individual of report) {
       if (String(individual.acocunt_id) === accountId) {
-        report[index].get_messages.push(thanksMessage);
+        // update
+        individual.get_messages.push(thanksMessage);
+        newReport.push(individual);
         isExistedInReport = true;
-        return;
+      } else {
+        newReport.push(individual);
       }
-    });
+    }
 
     // first insert
     if (!isExistedInReport) {
-      report.push({
+      newReport.push({
         acocunt_id: Number(accountId),
         get_messages: [thanksMessage],
         name: name,
@@ -98,11 +102,9 @@ const lib = {
   getStatusResultMessage: (individual) => {
     let message = individual.name + ' has ' + individual.get_messages.length + ' points!!';
 
-    console.log(individual.get_messages);
-
-    individual.get_messages.forEach((rowMessage) => {
+    for (const rowMessage of individual.get_messages) {
       message += '\n' + rowMessage;
-    });
+    }
 
     return message;
   },

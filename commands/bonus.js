@@ -9,14 +9,14 @@ const bonus = {
       fs.writeFileSync('./report.json', JSON.stringify([]));
     }
 
-    bonusMessages.forEach(async (message) => {
+    for (const message of bonusMessages) {
       const accountId = lib.getAccountId(message.body);
       const thanksMessage = lib.getThanksMessage(message.body); 
       const name = lib.getName(message.body);
 
       lib.registBonus(accountId, thanksMessage, name);
       await lib.postMessage(name + ' get 1 point!!');
-    });
+    }
   }
 }
 
