@@ -151,7 +151,7 @@ const lib = {
     );
   },
 
-  getSortedReport: (report) => {
+  getSortedGetterReport: (report) => {
     // 昇順に sort
     const sortedReport = report.sort((a, b) => {
       return a.get_messages.length - b.get_messages.length;
@@ -160,11 +160,34 @@ const lib = {
     return sortedReport.reverse();
   },
 
-  getSortedReportMessage: (sortedReport) => {
+  getSortedSenderReport: (report) => {
+    // 昇順に sort
+    const sortedReport = report.sort((a, b) => {
+      return a.send_message_count - b.send_message_count;
+    });
+
+    return sortedReport.reverse();
+  },
+
+  getSortedGetterReportMessage: (sortedGetterReport) => {
     let message = '';
 
-    for (const individual of sortedReport) {
-      message += individual.name + ' has ' + individual.get_messages.length + 'points!!\n';
+    for (const individual of sortedGetterReport) {
+      if (individual.get_messages.length !== 0) {
+        message += individual.name + ' has ' + individual.get_messages.length + ' points!!\n';
+      }
+    }
+
+    return message;
+  },
+
+  getSortedSenderReportMessage: (sortedSenderReport) => {
+    let message = '';
+
+    for (const individual of sortedSenderReport) {
+      if (individual.send_message_count !== 0) {
+        message += individual.name + ' send ' + individual.send_message_count + ' points!!\n';
+      }
     }
 
     return message;

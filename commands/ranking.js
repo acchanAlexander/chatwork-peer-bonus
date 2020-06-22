@@ -10,10 +10,17 @@ const ranking = {
     }
 
     const report = JSON.parse(fs.readFileSync('./report.json'));
-    const sortedReport = lib.getSortedReport(report); 
-    const sortedReportMessage = lib.getSortedReportMessage(sortedReport);
+    const sortedGetterReport = lib.getSortedGetterReport(report);
+    const sortedGetterReportMessage = lib.getSortedGetterReportMessage(sortedGetterReport);
+    const sortedSenderReport = lib.getSortedSenderReport(report);
+    const sortedSenderReportMessage = lib.getSortedSenderReportMessage(sortedSenderReport);
 
-    lib.postMessage(sortedReportMessage);
+    let rankingMessage = '[ GET RANKING ]\n';
+    rankingMessage += sortedGetterReportMessage;
+    rankingMessage += '\n[ SEND RANKING ]\n';
+    rankingMessage += sortedSenderReportMessage;
+
+    lib.postMessage(rankingMessage);
   }
 }
 
