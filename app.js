@@ -32,7 +32,6 @@ const main = async () => {
     }
   } catch (err) {
     console.log(err);
-    await lib.postMessage('error occured');
   }
 }
 
