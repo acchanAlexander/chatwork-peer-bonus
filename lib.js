@@ -86,11 +86,47 @@ const lib = {
       newReport.push({
         acocunt_id: Number(accountId),
         get_messages: [thanksMessage],
+        send_message_count: 0,
         name: name,
       });
     }
 
     fs.writeFileSync('./report.json', JSON.stringify(newReport, null , "\t"));
+  },
+
+  incrementSendCount: (senderAccountId, senderName) => {
+    const report = JSON.parse(fs.readFileSync('./report.json'));
+    let isExistedInReport = false;
+    let newReport = [];
+
+    for (let individual of report) {
+      if (individual.acocunt_id === senderAccountId) {
+        // update
+        if (individual.hasOwnProperty('send_message_count')) {
+          individual.send_message_count = individual.send_message_count + 1;
+        } else {
+          individual.send_message_count = 1;
+        }
+
+        newReport.push(individual);
+        isExistedInReport = true;
+      } else {
+        newReport.push(individual);
+      }
+    }
+
+    // first insert
+    if (!isExistedInReport) {
+      newReport.push({
+        acocunt_id: senderAccountId,
+        get_messages: [],
+        send_message_count: 1,
+        name: senderName,
+      });
+    }
+
+    fs.writeFileSync('./report.json', JSON.stringify(newReport, null , "\t"));
+
   },
 
   getStatusMessages: (messages) => {
